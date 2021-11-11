@@ -78,6 +78,7 @@ const chart = new Chart(ctx, {
 /* hàm cập nhật chart   */
 const drawChart = () => {
 	
+	// disable khung input hệ số không cần dùng
 	$('.coeff-form input').each((idx, coeff) => {
 		coeff.disabled = !coeffDics[graphSelected].includes(coeff.parentElement.id)
 	})
@@ -109,7 +110,7 @@ const drawChart = () => {
 
 	chart.options.elements.point.radius = pointRadius
 	
-	
+	// nội suy đường cong
 	for (const dataset of chart.data.datasets) {
 		dataset.cubicInterpolationMode = 'monotone'
 		dataset.tension = 0.4
@@ -121,15 +122,19 @@ const drawChart = () => {
 
 
 
-// vẽ chart lần đầu 
+// vẽ chart lần đầu khi load web
 let drew = false
-$(window).on('headerLoaded', () => {drawChart(); drew = true})
+
 setTimeout(() => {
 	if (drew === false) {
-		console.log('force draw chartjs')
+		console.warn('Header loading timeout, force draw chart')
 		drawChart()
 	}
-}, 1000)
+}, 1500)
+
+$(window).on('headerLoaded', () => {drawChart(); drew = true})
+
+
 
 
 
