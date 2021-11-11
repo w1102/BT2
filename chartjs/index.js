@@ -122,7 +122,14 @@ const drawChart = () => {
 
 
 // vẽ chart lần đầu 
-$(window).on('headerLoaded', () => drawChart())
+let drew = false
+$(window).on('headerLoaded', () => {drawChart(); drew = true})
+setTimeout(() => {
+	if (drew === false) {
+		console.log('force draw chartjs')
+		drawChart()
+	}
+}, 1000)
 
 
 
