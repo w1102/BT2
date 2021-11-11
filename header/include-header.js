@@ -2,7 +2,7 @@ import * as JQuery from '/modules/jquery.min.js'
 
 $(document).ready(() => {
 	
-	
+
 	$('#header').load('/header/header.html', (response, status, xhr) => {
 				
 		switch ( $('#header').attr("data-active") ) {
@@ -10,14 +10,17 @@ $(document).ready(() => {
 			case 'chart': $('#chart').addClass("active"); break;
 		}
 		
+		const headerLoaded = new CustomEvent('headerLoaded')
+		
 		setTimeout(() => {
 			
 			$('#root').innerHeight( window.innerHeight - $('#header').innerHeight()).slideToggle('fast', () => {
 							
-				$('#root').innerHeight( window.innerHeight - $('#header').innerHeight())
-				window.dispatchEvent(new CustomEvent('headerLoaded'))
+				window.dispatchEvent(headerLoaded)
+				setTimeout(() => $('#root').innerHeight( window.innerHeight - $('#header').innerHeight()), 200)
+				
 			})
-		}, 350)
+		}, 250)
 		
 	})
 })

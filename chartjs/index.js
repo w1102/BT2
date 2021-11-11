@@ -17,7 +17,7 @@ let coeffDics = {
 }
 
 
-let step = 0.1
+let step = 0.5
 let pointRadius = 1.0
 let Linecolor = '#ff479c'
 let graphSelected = 'bacHai'
@@ -108,14 +108,21 @@ const drawChart = () => {
 	}
 
 	chart.options.elements.point.radius = pointRadius
+	
+	
+	for (const dataset of chart.data.datasets) {
+		dataset.cubicInterpolationMode = 'monotone'
+		dataset.tension = 0.4
+	}
 
 	chart.update()
 }
 
-/*   vẽ chart lần đầu  */
-$(window).on('headerLoaded', () => {
-	drawChart()
-})
+
+
+
+// vẽ chart lần đầu 
+$(window).on('headerLoaded', () => drawChart())
 
 
 

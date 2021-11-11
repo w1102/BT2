@@ -11,7 +11,7 @@ const quadratic = (a, b, c, step, chart, color) => {
 		data: [],
 		borderColor: color,
 		borderWidth: 1,
-		showLine: true
+		showLine: true,
 	})
 
 
@@ -25,6 +25,8 @@ const quadratic = (a, b, c, step, chart, color) => {
 
 	let maxY = -Infinity,
 		minY = Infinity
+		
+
 	for (let x = minX; x <= maxX; x += step) {
 		chart.data.labels.push(x)
 
@@ -34,10 +36,8 @@ const quadratic = (a, b, c, step, chart, color) => {
 		maxY = Math.max(maxY, y)
 		minY = Math.min(minY, y)
 
-
-
 	}
-
+	
 
 	chart.options.plugins = {
 		annotation: {
