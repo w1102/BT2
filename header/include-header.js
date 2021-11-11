@@ -12,7 +12,7 @@ $(document).ready(() => {
 		
 		setTimeout(() => {
 			const headerLoaded = new CustomEvent('headerLoaded')
-			$('#root').innerHeight( window.innerHeight - $('#header').innerHeight()).toggle('fast', () => window.dispatchEvent(headerLoaded))
+			$('#root').innerHeight( window.innerHeight - $('#header').innerHeight()).toggle('slow', () => window.dispatchEvent(headerLoaded))
 		}, 250)
 		
 	})
