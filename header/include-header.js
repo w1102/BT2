@@ -1,4 +1,4 @@
-import * as JQuery from '/node_modules/jquery/dist/jquery.min.js'
+import * as JQuery from '/modules/jquery.min.js'
 
 $(document).ready(() => {
 	
