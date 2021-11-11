@@ -4,14 +4,16 @@ import quartic from './modules/quartic.js'
 import logarit from './modules/logarit.js'
 import { sinFunction, cosFunction, tanFunction } from './modules/trigonometric.js'
 
+import * as JQuery from '/modules/jquery.min.js'
+
 let coeffDics = {
-	bacHai: ['a-coeff', 'b-coeff', 'c-coeff'],
-	bacBa: ['a-coeff', 'b-coeff', 'c-coeff', 'd-coeff'],
-	bacBon: ['a-coeff', 'b-coeff', 'c-coeff'],
-	logarit: ['a-coeff'],
-	sin: [],
-	cos: [],
-	tan: []
+	bacHai	: ['a-coeff', 'b-coeff', 'c-coeff'],
+	bacBa	: ['a-coeff', 'b-coeff', 'c-coeff', 'd-coeff'],
+	bacBon	: ['a-coeff', 'b-coeff', 'c-coeff'],
+	logarit	: ['a-coeff'],
+	sin: ['a-coeff'],
+	cos: ['a-coeff'],
+	tan: ['a-coeff']
 }
 
 
@@ -37,9 +39,8 @@ if (hashURL !== '') {
 
 /* ================= =================  chạy 1 lần khi load web ================= ================= =================  */
 
-
 /* nạp hệ số vào input khi load web */
-for (const input of document.querySelectorAll('input')) {
+$('input').each((idx, input) => {
 	switch (input.parentElement.id) {
 		case 'a-coeff':
 			input.value = String(a)
@@ -60,9 +61,10 @@ for (const input of document.querySelectorAll('input')) {
 			input.value = String(pointRadius)
 			break
 	}
-}
+})
 
-/*      tạo chart    */
+
+/* tạo chart */
 const ctx = document.getElementById('myChart').getContext('2d');
 const chart = new Chart(ctx, {
 	type: 'scatter',
@@ -75,11 +77,10 @@ const chart = new Chart(ctx, {
 
 /* hàm cập nhật chart   */
 const drawChart = () => {
-
-	// disable input các hệ số không dùng
-	for (const coeff of document.querySelector('.coeff-form').querySelectorAll('input')) {
+	
+	$('.coeff-form input').each((idx, coeff) => {
 		coeff.disabled = !coeffDics[graphSelected].includes(coeff.parentElement.id)
-	}
+	})
 
 	if (step === 0) return
 
@@ -117,56 +118,51 @@ drawChart()
 
 
 
-
-
-
-
 /* ================= =================  DOM event ================= ================= =================  */
 
 
 
-
-
-
-
 // khi user xóa trống input mà không điền gì, sẽ tự động thêm số 0
-window.addEventListener("focusout", event => {
-	if (event.target.value === '') {
-		event.target.value = '0'
-		switch (event.target.parentElement.id) {
-			case 'a-coeff':
-				a = 0;
-				break;
-			case 'b-coeff':
-				b = 0;
-				break;
-			case 'c-coeff':
-				c = 0;
-				break;
-			case 'd-coeff':
-				d = 0;
-				break;
-			case 'step':
-				event.target.value = step;
-				break;
-			case 'pointRadius':
-				pointRadius = 0;
-				break;
-		}
-		drawChart()
+$('input').focusout(event => {
+	
+	if (event.target.value !== '') return
+	
+	event.target.value = 0
+	switch (event.target.parentElement.id) {
+		case 'a-coeff':
+			a = 0;
+			break;
+		case 'b-coeff':
+			b = 0;
+			break;
+		case 'c-coeff':
+			c = 0;
+			break;
+		case 'd-coeff':
+			d = 0;
+			break;
+		case 'step':
+			event.target.value = step;
+			break;
+		case 'pointRadius':
+			pointRadius = 0;
+			break;
 	}
+	
+	drawChart()
 })
 
-// sự kiện thay đổi input value
-window.addEventListener("input", event => {
 
+
+// sự kiện thay đổi form input
+$('input').on('input', event => {
+		
 	// regex xóa ký tự không phải chữ số
 	event.target.value = event.target.value.replace(/[^-0-9.]/g, '')
+	
 	if (event.target.value === '') return
-
-
+	
 	switch (event.target.parentElement.id) {
-
 		case 'pointRadius':
 			pointRadius = parseFloat(event.target.value)
 			break
@@ -186,41 +182,54 @@ window.addEventListener("input", event => {
 			d = parseFloat(event.target.value)
 			break
 	}
+	
 	drawChart()
 })
 
 
-// sự kiện click button
-for (let button of document.querySelectorAll('button')) button.addEventListener('click', event => {
-	switch (event.target.parentElement.id) {
-		case 'step':
-			step += event.target.id === 'increase' ? 0.1 : (step >= 0.18 ? -0.1 : 0)
+
+// sự kiện click button tăng giảm
+$('button').click(event => {
+	switch (event.target.id) {
+		case 'step-increase':
+			step += 0.1
 			event.target.parentElement.querySelector('input').value = step.toFixed(1)
-			break
-		case 'pointRadius':
-			pointRadius += event.target.id === 'point-increase' ? 0.5 : (pointRadius >= 0.5 ? -0.5 : 0)
+			break 
+		case 'step-decrease':
+			step -= step >= 0.2 ? 0.1 : 0
+			event.target.parentElement.querySelector('input').value = step.toFixed(1)
+			break 
+			
+		case 'point-increase':
+			pointRadius += 0.5
 			event.target.parentElement.querySelector('input').value = pointRadius.toFixed(1)
-			break
+			break 
+		case 'point-decrease':
+			pointRadius -= pointRadius >= 0.5 ? 0.5 : 0
+			event.target.parentElement.querySelector('input').value = pointRadius.toFixed(1)
+			break 
 	}
+	
 	drawChart()
 })
+
+
 
 
 // sự kiện click chọn màu
-for (let color of document.querySelectorAll('.colorpicker')) color.addEventListener('click', event => {
+$('.colorpicker').click(event => {
 	Linecolor = '#' + event.target.id
 	drawChart()
 })
 
+
 // sự kiện click chọn loại đồ thị
-for (let graphSelect of document.querySelectorAll('.graphSelect')) graphSelect.addEventListener('click', event => {
-
-	for (let graphSelect of document.querySelectorAll('.graphSelect')) {
-		graphSelect.setAttribute('class', 'graphSelect nav-link')
-	}
-	event.target.setAttribute('class', 'graphSelect nav-link active')
-
+$('.graphSelect').click(event => {
+	
+	$('.graphSelect').removeClass('active')
+	$('#' + event.target.id).addClass('active')
+	
 	graphSelected = event.target.id
-
 	drawChart()
+	
 })
