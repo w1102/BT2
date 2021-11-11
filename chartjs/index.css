@@ -1,0 +1,71 @@
+/* ================================ app ============================ */
+.app {
+	width: 100vw;
+	height: 100%;
+	
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+}
+/* ================================ sidebar ============================ */
+.sidebar {
+	width: 100vw;
+	/* height: 550px; */
+	
+	box-sizing: border-box;
+	padding: 10px;
+	background-color: #dfdcb9;
+}
+.sidebar .graphSelect {
+	margin-left: 10px;
+	cursor: pointer;
+}
+/* ============================= content =========================== */
+
+
+.content {
+	width: 100vw;
+	height: 400px;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+}
+
+#canvas-container {
+	background-color: #a9af90;
+	width: 100%;
+	flex: 1;
+}
+/* ============================ settings ============================== */
+
+.settings {
+	height: 260px;
+	width: 100vw;
+	
+	box-sizing: border-box;
+	padding: 0 10px;
+	background-color: #dfdcb9;
+}
+/* ============================ color picker ============================== */
+.colorpicker-container {
+	display: flex;
+}
+
+.colorpicker {
+	width: 10px;
+	height: 20px;
+	
+	border: 3px solid transparent;
+	cursor: pointer;
+	flex: 1
+}
+
+.colorpicker:first-child {
+	border-radius: 5px 0 0 5px
+}
+
+.colorpicker:last-child {
+	border-radius: 0 5px 5px 0
+}

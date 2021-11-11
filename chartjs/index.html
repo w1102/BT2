@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Chart JS</title>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+	<!-- thư viện mathjs, tính toán phương trình -->
+	<script src="node_modules/mathjs/lib/browser/math.js"></script>
+
+	<!-- thư viện chartjs -->
+	<script src="node_modules/chart.js/dist/chart.min.js"></script>
+
+	<!-- chartjs plugin, vẽ đường x0, y0 -->
+	<script src="node_modules/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
+
+	<!-- bootstrap css -->
+	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" /> -->
+
+	<link rel="icon" href="/img/favi.png">
+
+	
+	<!-- <link href="index.css" rel="stylesheet" />
+	<link href="pcview.css" rel="stylesheet" /> -->
+
+
+
+</head>
+
+<body>
+	
+	<div id="header" data-active="chart"></div>
+	<script type="module" src="/header/include-header.js"></script>
+	
+	<link href="index.css" rel="stylesheet" />
+	<link href="pcview.css" rel="stylesheet" />
+	
+		
+		<div class="app" id="root" style="visibility: hidden">
+	
+			<div class="sidebar">
+	
+				<ul id="menu-container" class="nav flex-column nav-pills">
+					<li>Các hàm cơ bản</li>
+					<li class="graphSelect nav-link active" id="bacHai">Đồ thị bậc hai</li>
+					<li class="graphSelect nav-link" id="bacBa">Đồ thị bậc ba</li>
+					<li class="graphSelect nav-link" id="bacBon">Đồ thị bậc bốn</li>
+					<li class="graphSelect nav-link" id="logarit">Đồ thị logarit</li>
+					<li>Các Hàm lượng giác</li>
+					<li class="graphSelect nav-link" id="sin">Đồ thị hàm sin</li>
+					<li class="graphSelect nav-link" id="cos">Đồ thị hàm cos</li>
+					<li class="graphSelect nav-link" id="tan">Đồ thị hàm tan</li>
+				</ul>
+	
+	
+				<form class="coeff-form" role="presentation" autocomplete="off">
+	
+					<div class="input-group input-group-sm mb-3" id="a-coeff">
+						<div class="input-group-prepend">
+							<span class="input-group-text">A</span>
+						</div>
+						<input type="text" class="form-control" />
+					</div>
+	
+					<div class="input-group input-group-sm mb-3" id="b-coeff">
+						<div class="input-group-prepend">
+							<span class="input-group-text">B</span>
+						</div>
+						<input type="text" class="form-control" />
+					</div>
+	
+					<div class="input-group input-group-sm mb-3" id="c-coeff">
+						<div class="input-group-prepend">
+							<span class="input-group-text">C</span>
+						</div>
+						<input type="text" class="form-control" />
+					</div>
+	
+					<div class="input-group input-group-sm mb-3" id="d-coeff">
+						<div class="input-group-prepend">
+							<span class="input-group-text">D</span>
+						</div>
+						<input type="text" class="form-control" />
+					</div>
+	
+				</form>
+	
+			</div>
+	
+	
+			<div class="content">
+				<div id="canvas-container">
+					<canvas id="myChart"></canvas>
+				</div>
+			</div>
+	
+	
+			<div class="settings">
+	
+				<form>
+					<label>Settings</label>
+	
+					<div class="input-group input-group-sm mb-3" id="step">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Step&nbsp;&nbsp;&nbsp;</span>
+						</div>
+						<input type="text" class="form-control" />
+						<button class="btn btn-secondary" type="button" id="decrease">&lt;</button>
+						<button class="btn btn-secondary" type="button" id="increase">&gt;</button>
+	
+					</div>
+	
+					<label>Point</label>
+	
+					<div class="input-group input-group-sm mb-3" id="pointRadius">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Radius</span>
+						</div>
+						<input type="text" class="form-control" />
+						<button class="btn btn-secondary" type="button" id="point-decrease">&lt;</button>
+	
+						<button class="btn btn-secondary" type="button" id="point-increase">&gt;</button>
+					</div>
+	
+					<label>Line color</label>
+	
+					<div class="colorpicker-container">
+						<div class="colorpicker btn-outline-dark" id="ff479c"></div>
+						<!-- pink   -->
+						<div class="colorpicker btn-outline-dark" id="7f00ff"></div>
+						<!-- violet   -->
+						<div class="colorpicker btn-outline-dark" id="3a579a"></div>
+						<!-- blue   -->
+						<div class="colorpicker btn-outline-dark" id="00ff3f"></div>
+						<!-- green  -->
+						<div class="colorpicker btn-outline-dark" id="fffb38"></div>
+						<!-- yellow -->
+					</div>
+	
+				</form>
+	
+			</div>
+	
+		</div>
+	
+	
+
+
+	<!-- script xử lý khí user thay đổi kích thước trình duyệt, và đổ màu vào color-picker -->
+	<script>
+	
+		let loadingWhenEnterMobileScreen = true
+	
+		$(window).on('resize', () => {
+			
+			const sidebarWidth  = 250;
+			const settingsWidth = 220;
+			const mobileScreen  = 500
+			
+			let win = $(this)
+			
+			if (win.innerWidth <= mobileScreen && loadingWhenEnterMobileScreen) {
+				location.reload()
+				loadingWhenEnterMobileScreen = false
+			}
+			
+			if (window.innerWidth > 768) {
+				loadingWhenEnterMobileScreen = true
+				$('.content').innerWidth( win.innerWidth() -  (sidebarWidth + settingsWidth))
+				$('.settings').innerWidth( settingsWidth )
+			}
+				
+			
+		}).trigger('resize')
+	
+
+		for (const color of document.querySelectorAll('.colorpicker')) {
+			color.style.backgroundColor = '#' + color.id
+		}
+	</script>
+
+	<!-- script xử lý chính -->
+	<script type="module" src="/chartjs/index.js"></script>
+</body>
+
+</html>

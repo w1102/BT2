@@ -1,0 +1,36 @@
+@media only screen and (min-width: 768px) {
+	:root {
+		--sidebar-width : 250px;
+		--settings-Width: 220px;
+		--header-height : 70px;
+	}		
+
+	.app {
+		height: calc(100vh - var(--header-height));
+		flex-flow: row nowrap;
+	}
+	
+	.sidebar {
+		min-width: var(--sidebar-width);
+		width:  var(--sidebar-width);
+		height: 100%;
+	}
+	
+	.sidebar .graphSelect:last-child {
+		margin-bottom: 10px;
+	}
+	
+	.content {
+		height: 100%;
+	}
+	
+	.settings {
+		width: var(--settings-width);
+		height: 100%;
+	}
+	
+	.settings label {
+		margin: 10px 0;
+	}
+	
+}

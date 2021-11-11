@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
+  /* #1f5ca8 */
+  
+.img-avatar img {
+
+	width: 85px;
+	height: 85px;
+	/* margin: 0 auto */
+	margin: 0 100px 0 0;
+}
+
+#root {
+	font-family: Roboto, sans-serif;
+	margin: 0;
+	/* height: 100vh; */
+	width: 100vw;
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	/* background-image: linear-gradient(to top, #96fbc4 0%, #f9f586 100%); #f4d03f */
+	background-image: linear-gradient(to top, #3e9cbf 0%, #f4d03f 100%);
+
+}
+
+.card-container {
+	background: #fff;
+	border-radius: 4px;
+	box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
+	width: 500px;
+	display: flex;
+	flex-direction: row;
+	border-radius: 25px;
+	position: relative;
+}
+
+.card-container h2 {
+	margin: 0;
+	padding: 0 1rem;
+}
+
+.card-container .sub-title {
+	padding: 0.5rem;
+	text-align: right;
+	color: #1f5ca8;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.card-container .title {
+	padding: 0.5rem;
+	text-align: right;
+	color: #1f5ca8;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.card-container .desc {
+	padding: 0.5rem 1rem;
+	font-size: 12px;
+}
+
+.card-container .actions {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: center;
+	padding: 0.5rem 1rem;
+}
+
+.card-container .img-avatar {
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	border-radius: 50%;
+	border: 6px solid white;
+	
+	/* background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%); */
+	background-image: linear-gradient(-60deg, #44d1df 0%, #f4d03f 100%);
+	
+	top: 15px;
+	left: 85px;
+}
+
+.card-container .card-text {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+.card-container .title-total {
+	padding: 2.5em 1.5em 1.5em 1.5em;
+}
+
+
+
+.card-container .img-portada {
+	width: 100%;
+}
+
+.card-container .portada {
+	width: 100%;
+	height: 100%;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	
+	/* background-image: url("https://m.media-amazon.com/images/S/aplus-media/vc/cab6b08a-dd8f-4534-b845-e33489e91240._CR75,0,300,300_PT0_SX300__.jpg"); */
+	background-image: url("img/congA.jpg");
+	
+	background-position: bottom center;
+	background-size: cover;
+}
+
+.card-container button {
+	border: none;
+	background: none;
+	font-size: 24px;
+	color: #3e9cbf;
+	cursor: pointer;
+	transition: .5s;
+
+}
+
+.card-container button:hover {
+	color: #1f5ca8;
+	transform: rotate(22deg)
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quadratic calculator</title>
+
+	<!-- thư viện mathjax, vẽ latex -->
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+	<!-- thư viện mathjs, tính toán phân số -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.js" integrity="sha512-+lwWRCGAWhCLRPruF7ruYxRlMQuRD1H9C/Pc/HYcuxachoLufBO7OU66bfFnVsFaHQj3S/CunEimw8alVvkl+Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+	<link rel="icon" href="/img/favi.png">
+
+	<link href="/quadratic-calculator/index.css" rel="stylesheet" />
+
+
+
+</head>
+
+<body>
+
+	<div id="header" data-active="calc"></div>
+	<script type="module" src="/header/include-header.js"></script>
+
+	<div id="append-MathJax"></div>
+	<script>
+		if (typeof MathJax === "undefined") {
+			let script = document.createElement('script')
+			script.setAttribute('async', '')
+			script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
+			document.querySelector('#append-MathJax').appendChild(script)
+		} else {
+			location.reload()
+		}
+	</script>
+
+	<div id="root" style="visibility: hidden">
+		<div class="app">
+			<div class="sidebar">
+
+				<form class="coeff-form" role="presentation" autocomplete="off">
+
+					<label>Nhập hệ số</label>
+
+					<div class="input-group mb-3" id="a-coeff">
+						<div class="input-group-prepend">
+							<span class="input-group-text">A</span>
+						</div>
+						<input type="text" class="form-control" />
+						<button class="btn btn-secondary" type="button">&#8634;</button>
+					</div>
+
+					<div class="input-group mb-3" id="b-coeff">
+						<div class="input-group-prepend">
+							<span class="input-group-text">B</span>
+						</div>
+						<input type="text" class="form-control" />
+						<button class="btn btn-secondary" type="button">&#8634;</button>
+					</div>
+
+					<div class="input-group mb-3" id="c-coeff">
+						<div class="input-group-prepend">
+							<span class="input-group-text">C</span>
+						</div>
+						<input type="text" class="form-control" />
+						<button class="btn btn-secondary" type="button">&#8634;</button>
+					</div>
+
+
+
+				</form>
+
+
+				<form class="settings-form" role="presentation" autocomplete="off">
+
+					<label>Settings</label>
+
+					<div class="input-group mb-3" id="font-size">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Font size</span>
+						</div>
+						<input type="text" class="form-control" />
+
+						<button class="btn btn-secondary" type="button" id="font-decrease">&lt;</button>
+						<button class="btn btn-secondary" type="button" id="font-increase">&gt;</button>
+
+					</div>
+
+					<div class="input-group mb-3" id="fixed">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Làm tròn</span>
+						</div>
+						<input type="text" class="form-control" />
+
+						<button class="btn btn-secondary" type="button" id="fixed-decrease">&lt;</button>
+						<button class="btn btn-secondary" type="button" id="fixed-increase">&gt;</button>
+
+					</div>
+
+
+					<button class="btn btn-secondary" type="button" id="goToChartjs">Vẽ đồ thị</button>
+
+
+				</form>
+			</div>
+
+			<div class="content">
+				<div class="result-container">
+					<p></p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<script type="module" src="/quadratic-calculator/index.js" async></script>
+
+</body>
+
+</html>
