@@ -11,9 +11,13 @@ $(document).ready(() => {
 		}
 		
 		setTimeout(() => {
-			const headerLoaded = new CustomEvent('headerLoaded')
-			$('#root').innerHeight( window.innerHeight - $('#header').innerHeight()).toggle('slow', () => window.dispatchEvent(headerLoaded))
-		}, 250)
+			
+			$('#root').innerHeight( window.innerHeight - $('#header').innerHeight()).slideToggle('fast', () => {
+							
+				$('#root').innerHeight( window.innerHeight - $('#header').innerHeight())
+				window.dispatchEvent(new CustomEvent('headerLoaded'))
+			})
+		}, 350)
 		
 	})
 })
