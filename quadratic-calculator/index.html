@@ -27,88 +27,86 @@
 
 	<div id="header" data-active="calc"></div>
 	<script type="module" src="/header/include-header.js"></script>
-	
 
-	<div id="root" style="visibility: hidden">
-		<div class="app">
-			<div class="sidebar">
 
-				<form class="coeff-form" role="presentation" autocomplete="off">
+	<div class="app" id="root" style="visibility: hidden">
+		<div class="sidebar">
 
-					<label>Nhập hệ số</label>
+			<form class="coeff-form" role="presentation" autocomplete="off">
 
-					<div class="input-group mb-3" id="a-coeff">
-						<div class="input-group-prepend">
-							<span class="input-group-text">A</span>
-						</div>
-						<input type="text" class="form-control" />
-						<button class="btn btn-secondary" type="button">&#8634;</button>
+				<label>Nhập hệ số</label>
+
+				<div class="input-group mb-3" id="a-coeff">
+					<div class="input-group-prepend">
+						<span class="input-group-text">A</span>
 					</div>
-
-					<div class="input-group mb-3" id="b-coeff">
-						<div class="input-group-prepend">
-							<span class="input-group-text">B</span>
-						</div>
-						<input type="text" class="form-control" />
-						<button class="btn btn-secondary" type="button">&#8634;</button>
-					</div>
-
-					<div class="input-group mb-3" id="c-coeff">
-						<div class="input-group-prepend">
-							<span class="input-group-text">C</span>
-						</div>
-						<input type="text" class="form-control" />
-						<button class="btn btn-secondary" type="button">&#8634;</button>
-					</div>
-
-
-
-				</form>
-
-
-				<form class="settings-form" role="presentation" autocomplete="off">
-
-					<label>Settings</label>
-
-					<div class="input-group mb-3" id="font-size">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Font size</span>
-						</div>
-						<input type="text" class="form-control" />
-
-						<button class="btn btn-secondary" type="button" id="font-decrease">&lt;</button>
-						<button class="btn btn-secondary" type="button" id="font-increase">&gt;</button>
-
-					</div>
-
-					<div class="input-group mb-3" id="fixed">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Làm tròn</span>
-						</div>
-						<input type="text" class="form-control" />
-
-						<button class="btn btn-secondary" type="button" id="fixed-decrease">&lt;</button>
-						<button class="btn btn-secondary" type="button" id="fixed-increase">&gt;</button>
-
-					</div>
-
-
-					<button class="btn btn-secondary" type="button" id="goToChartjs">Vẽ đồ thị</button>
-
-
-				</form>
-			</div>
-
-			<div class="content">
-				<div class="result-container">
-					<p></p>
+					<input type="text" class="form-control" />
+					<button class="btn btn-secondary" type="button">&#8634;</button>
 				</div>
+
+				<div class="input-group mb-3" id="b-coeff">
+					<div class="input-group-prepend">
+						<span class="input-group-text">B</span>
+					</div>
+					<input type="text" class="form-control" />
+					<button class="btn btn-secondary" type="button">&#8634;</button>
+				</div>
+
+				<div class="input-group mb-3" id="c-coeff">
+					<div class="input-group-prepend">
+						<span class="input-group-text">C</span>
+					</div>
+					<input type="text" class="form-control" />
+					<button class="btn btn-secondary" type="button">&#8634;</button>
+				</div>
+
+
+
+			</form>
+
+
+			<form class="settings-form" role="presentation" autocomplete="off">
+
+				<label>Settings</label>
+
+				<div class="input-group mb-3" id="font-size">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Font size</span>
+					</div>
+					<input type="text" class="form-control" />
+
+					<button class="btn btn-secondary" type="button" id="font-decrease">&lt;</button>
+					<button class="btn btn-secondary" type="button" id="font-increase">&gt;</button>
+
+				</div>
+
+				<div class="input-group mb-3" id="fixed">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Làm tròn</span>
+					</div>
+					<input type="text" class="form-control" />
+
+					<button class="btn btn-secondary" type="button" id="fixed-decrease">&lt;</button>
+					<button class="btn btn-secondary" type="button" id="fixed-increase">&gt;</button>
+
+				</div>
+
+
+				<button class="btn btn-secondary" type="button" id="goToChartjs">Vẽ đồ thị</button>
+
+
+			</form>
+		</div>
+
+		<div class="content">
+			<div class="result-container">
+				<p></p>
 			</div>
-			
 		</div>
 
 	</div>
-	
+
+
 	<!-- script giảm nhỏ font khi user dùng smartphone -->
 	<script type="module" async>
 		import * as JQuery from '/modules/jquery.min.js'
