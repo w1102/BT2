@@ -70,7 +70,7 @@ $('button').click(event => {
 	// button vẽ đồ thị
 	if (event.target.id === 'goToChartjs') {
 		let hashURL = `#${a},${b},${c}`
-		window.open("/chartjs/" + hashURL, '_blank').focus();
+		window.location.href = '/chartjs/' + hashURL
 	}
 	
 	// button khác

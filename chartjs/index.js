@@ -113,7 +113,10 @@ const drawChart = () => {
 }
 
 /*   vẽ chart lần đầu  */
-drawChart()
+$(window).on('headerLoaded', () => {
+	drawChart()
+})
+
 
 
 
