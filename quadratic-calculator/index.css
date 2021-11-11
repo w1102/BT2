@@ -1,9 +1,9 @@
 .app {
 	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
+	flex-direction: column;
+	align-items: center;
 	height: 100%;
-	width: 100%;
+	width: 100vw;
 }
 
 .sidebar {
@@ -12,10 +12,9 @@
 	justify-content: space-between;
 	background-color: #dfdcb9;
 	height: 100%;
-	max-width: 280px;
+	width: 100vw;
 
 }
-
 
 
 .sidebar form {
@@ -43,7 +42,7 @@
 
 
 .content {
-	width: 100%;
+	width: 100vw;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -58,31 +57,13 @@
 }
 
 
-/* For mobile screen
-@media (max-width: 550px) {
-	.header p a {
-		font-size: 10pt
-	}
-
-	.header p {
-		font-size: 11pt
-	}
-
-	.header img {
-		width: 40px;
-		height: 40px
-	}
-} */
-
-
-@media (max-width: 500px) {
+@media only screen and (min-width: 700px) {
 	.app {
-		flex-direction: column;
-		align-items: center;
+		flex-direction: row;
 	}
-
+	
 	.sidebar {
-		height: 100%;
-		max-width: 100%;
+		max-width: 240px;
 	}
 }
+

@@ -9,6 +9,7 @@
 
 	<!-- thư viện mathjax, vẽ latex -->
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 	<!-- thư viện mathjs, tính toán phân số -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.js" integrity="sha512-+lwWRCGAWhCLRPruF7ruYxRlMQuRD1H9C/Pc/HYcuxachoLufBO7OU66bfFnVsFaHQj3S/CunEimw8alVvkl+Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -26,18 +27,7 @@
 
 	<div id="header" data-active="calc"></div>
 	<script type="module" src="/header/include-header.js"></script>
-
-	<div id="append-MathJax"></div>
-	<script>
-		if (typeof MathJax === "undefined") {
-			let script = document.createElement('script')
-			script.setAttribute('async', '')
-			script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js')
-			document.querySelector('#append-MathJax').appendChild(script)
-		} else {
-			location.reload()
-		}
-	</script>
+	
 
 	<div id="root" style="visibility: hidden">
 		<div class="app">
@@ -114,12 +104,31 @@
 					<p></p>
 				</div>
 			</div>
+			
 		</div>
 
 	</div>
+	
+	<!-- script giảm nhỏ font khi user dùng smartphone -->
+	<script type="module" async>
+		import * as JQuery from '/modules/jquery.min.js'
 
+		$(window).resize(event => {
 
+			const win = $(window)
+			const mobileScreen = 700
+			const mobileFontSize = 12
+
+			if (win.innerWidth() < mobileScreen) $('#font-size input').val(mobileFontSize).trigger('input')
+		})
+
+		// tạo resize event sau 1s
+		setTimeout(() => window.dispatchEvent(new Event('resize')), 1000)
+	</script>
+
+	<!-- script chính -->
 	<script type="module" src="/quadratic-calculator/index.js" async></script>
+
 
 </body>
 
