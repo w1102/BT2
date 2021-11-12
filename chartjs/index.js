@@ -16,11 +16,21 @@ let coeffDics = {
 	tan: ['a-coeff']
 }
 
+let settings
 
-let step = 0.5
-let pointRadius = 1.0
-let Linecolor = '#ff479c'
-let graphSelected = 'bacHai'
+const store = localStorage.getItem('settings')
+settings = store !== null ? JSON.parse(store) : {
+	step: 0.5,
+	pointRadius: 1.0,
+	Linecolor: '#ff479c',
+	graphSelected: 'bacHai'
+}
+
+
+
+const saveSettings = () => localStorage.setItem('settings', JSON.stringify(settings))
+
+
 
 let a = 2
 let b = 0
@@ -55,10 +65,12 @@ $('input').each((idx, input) => {
 			input.value = String(d)
 			break
 		case 'step':
-			input.value = String(step)
+			//input.value = String(step)
+			input.value = String(settings.step.toFixed(1))
 			break
 		case 'pointRadius':
-			input.value = String(pointRadius)
+			//input.value = String(pointRadius)
+			input.value = String(settings.pointRadius.toFixed(1))
 			break
 	}
 })
@@ -80,35 +92,35 @@ const drawChart = () => {
 	
 	// disable khung input hệ số không cần dùng
 	$('.coeff-form input').each((idx, coeff) => {
-		coeff.disabled = !coeffDics[graphSelected].includes(coeff.parentElement.id)
+		coeff.disabled = !coeffDics[settings.graphSelected].includes(coeff.parentElement.id)
 	})
 
-	if (step === 0) return
+	if (settings.step === 0) return
 
-	switch (graphSelected) {
+	switch (settings.graphSelected) {
 		case 'bacHai':
-			quadratic(a, b, c, step, chart, Linecolor)
+			quadratic(a, b, c, settings.step, chart, settings.Linecolor)
 			break
 		case 'bacBa':
-			cubic(a, b, c, d, step, chart, Linecolor)
+			cubic(a, b, c, d, settings.step, chart, settings.Linecolor)
 			break
 		case 'bacBon':
-			quartic(a, b, c, step, chart, Linecolor)
+			quartic(a, b, c, settings.step, chart, settings.Linecolor)
 			break
 		case 'logarit':
-			logarit(a, step, chart, Linecolor)
+			logarit(a, settings.step, chart, settings.Linecolor)
 			break
 		case 'sin':
-			sinFunction(a, step, chart, Linecolor)
+			sinFunction(a, settings.step, chart, settings.Linecolor)
 			break
 		case 'cos':
-			cosFunction(a, step, chart, Linecolor)
+			cosFunction(a, settings.step, chart, settings.Linecolor)
 			break
 		case 'tan':
-			tanFunction(a, step, chart, Linecolor)
+			tanFunction(a, settings.step, chart, settings.Linecolor)
 	}
 
-	chart.options.elements.point.radius = pointRadius
+	chart.options.elements.point.radius = settings.pointRadius
 	
 	// nội suy đường cong
 	for (const dataset of chart.data.datasets) {
@@ -164,10 +176,14 @@ $('input').focusout(event => {
 			d = 0;
 			break;
 		case 'step':
-			event.target.value = step;
+			//event.target.value = step;
+			event.target.value = settings.step
+			saveSettings()
 			break;
 		case 'pointRadius':
-			pointRadius = 0;
+			//pointRadius = 0;
+			settings.pointRadius
+			saveSettings()
 			break;
 	}
 	
@@ -186,10 +202,14 @@ $('input').on('input', event => {
 	
 	switch (event.target.parentElement.id) {
 		case 'pointRadius':
-			pointRadius = parseFloat(event.target.value)
+			//pointRadius = parseFloat(event.target.value)
+			settings.pointRadius = parseFloat(event.target.value)
+			saveSettings()
 			break
 		case 'step':
-			step = parseFloat(event.target.value)
+			//step = parseFloat(event.target.value)
+			settings.step = parseFloat(event.target.value)
+			saveSettings()
 			break
 		case 'a-coeff':
 			a = parseFloat(event.target.value)
@@ -214,23 +234,29 @@ $('input').on('input', event => {
 $('button').click(event => {
 	switch (event.target.id) {
 		case 'step-increase':
-			step += 0.1
-			event.target.parentElement.querySelector('input').value = step.toFixed(1)
+			settings.step += 0.1
+			saveSettings()
+			event.target.parentElement.querySelector('input').value = settings.step.toFixed(1)
 			break 
 		case 'step-decrease':
-			step -= step >= 0.2 ? 0.1 : 0
-			event.target.parentElement.querySelector('input').value = step.toFixed(1)
+			settings.step -= settings.step >= 0.2 ? 0.1 : 0
+			saveSettings()
+			event.target.parentElement.querySelector('input').value = settings.step.toFixed(1)
 			break 
 			
 		case 'point-increase':
-			pointRadius += 0.5
-			event.target.parentElement.querySelector('input').value = pointRadius.toFixed(1)
+			settings.pointRadius += 0.5
+			saveSettings()
+			event.target.parentElement.querySelector('input').value = settings.pointRadius.toFixed(1)
 			break 
 		case 'point-decrease':
-			pointRadius -= pointRadius >= 0.5 ? 0.5 : 0
-			event.target.parentElement.querySelector('input').value = pointRadius.toFixed(1)
+			settings.pointRadius -= settings.pointRadius >= 0.5 ? 0.5 : 0
+			saveSettings()
+			event.target.parentElement.querySelector('input').value = settings.pointRadius.toFixed(1)
 			break 
 	}
+	
+	console.log(settings.pointRadius)
 	
 	drawChart()
 })
@@ -240,7 +266,8 @@ $('button').click(event => {
 
 // sự kiện click chọn màu
 $('.colorpicker').click(event => {
-	Linecolor = '#' + event.target.id
+	settings.Linecolor = '#' + event.target.id
+	saveSettings()
 	drawChart()
 })
 
@@ -251,7 +278,8 @@ $('.graphSelect').click(event => {
 	$('.graphSelect').removeClass('active')
 	$('#' + event.target.id).addClass('active')
 	
-	graphSelected = event.target.id
+	settings.graphSelected = event.target.id
+	saveSettings()
 	drawChart()
 	
 })

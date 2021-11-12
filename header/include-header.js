@@ -1,7 +1,7 @@
 import * as JQuery from '/modules/jquery.min.js'
 
+
 $(document).ready(() => {
-	
 
 	$('#header').load('/header/header.html', (response, status, xhr) => {
 				
@@ -10,17 +10,24 @@ $(document).ready(() => {
 			case 'chart': $('#chart').addClass("active"); break;
 		}
 		
-		const headerLoaded = new CustomEvent('headerLoaded')
-		
-		setTimeout(() => {
+	
+		const headerHeight = $(window).innerWidth() <= 575 ? 56 : 65
+		const resizeRoot = () => {
 			
-			$('#root').innerHeight( window.innerHeight - $('#header').innerHeight()).slideToggle('fast', () => {
-							
-				window.dispatchEvent(headerLoaded)
-				setTimeout(() => $('#root').innerHeight( window.innerHeight - $('#header').innerHeight()), 200)
+			// console.log($('#header').innerHeight(), headerHeight)
+		
+			if ($('#header').innerHeight() < headerHeight) setTimeout(resizeRoot, 5)
+			else {
 				
-			})
-		}, 250)
+				// console.log($('#header').innerHeight())
+				
+				const headerLoaded = new CustomEvent('headerLoaded')
+				$('#root').innerHeight( window.innerHeight - headerHeight).slideToggle('fast', () => window.dispatchEvent(headerLoaded))
+			}
+		}
+		
+		resizeRoot()
+		
 		
 	})
 })
