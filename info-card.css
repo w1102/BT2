@@ -4,8 +4,8 @@
   
 .img-avatar img {
 
-	width: 85px;
-	height: 85px;
+	width: 63px;
+	height: 63px;
 	/* margin: 0 auto */
 	margin: 0 100px 0 0;
 }
@@ -27,7 +27,7 @@
 	background: #fff;
 	border-radius: 4px;
 	box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
-	width: 500px;
+	width: 350px;
 	display: flex;
 	flex-direction: row;
 	border-radius: 25px;
@@ -35,7 +35,8 @@
 }
 
 .card-container h2 {
-	margin: 0;
+	font-size: 14.6pt;
+	margin: 0 0 10px;
 	padding: 0 1rem;
 }
 
@@ -68,8 +69,8 @@
 }
 
 .card-container .img-avatar {
-	width: 80px;
-	height: 80px;
+	width: 60px;
+	height: 60px;
 	position: absolute;
 	border-radius: 50%;
 	border: 6px solid white;
@@ -122,4 +123,27 @@
 .card-container button:hover {
 	color: #1f5ca8;
 	transform: rotate(22deg)
+}
+
+
+@media only screen and (min-width: 576px) {
+	.img-avatar img {
+		width: 85px;
+		height: 85px;
+	}
+	
+	.card-container {
+		width: 450px;
+	}
+	
+	.card-container h2 {
+		font-size: 21pt;
+		margin: 0;
+	}
+	
+	.card-container .img-avatar {
+		width: 80px;
+		height: 80px;
+	}
+	
 }
