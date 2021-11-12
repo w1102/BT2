@@ -45,9 +45,9 @@
 						<p> <b></b> </p>
 					</div>
 					<div class="actions">
-						<button><i class="fab fa-facebook"></i></button>
-						<button><i class="fab fa-github"></i></button>
-						<button><i class="fab fa-tiktok"></i></button>
+						<button id="facebook"><i class="fab fa-facebook"></i></button>
+						<button id="github"><i class="fab fa-github"></i></button>
+						<button id="titok"><i class="fab fa-tiktok"></i></button>
 					</div>
 				</div>
 
@@ -55,6 +55,24 @@
 
 		</div>
 	</div>
+	
+		
+	
+	<script>
+	
+		for (const button of document.querySelectorAll('.actions button')) button.addEventListener('click', event => {
+			
+			let id = event.target.id === '' ? event.target.parentElement.id : event.target.id
+			
+			console.log(id)
+			switch (id) {
+				case 'facebook': window.open("https://www.facebook.com/tranwang1102", '_blank').focus(); break 
+				case 'github'  : window.open("https://github.com/w1102"             , '_blank').focus(); break 
+				case 'titok'   : window.open("https://www.tiktok.com/@tranwang1102" , '_blank').focus(); break 
+			}
+		})
+		
+	</script>
 
 
 
