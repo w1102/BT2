@@ -130,7 +130,7 @@ setTimeout(() => {
 		console.warn('Header loading timeout, force draw chart')
 		drawChart()
 	}
-}, 1500)
+}, 1000)
 
 $(window).on('headerLoaded', () => {drawChart(); drew = true})
 
